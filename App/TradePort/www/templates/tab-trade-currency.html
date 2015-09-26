@@ -9,24 +9,36 @@
                 <input type="email" placeholder="Email" ng-model="user.email">
             </label>
 
-            <label class="item item-input item-stacked-label">
-                <span class="input-label">Have</span>
-                <select name="have" ng-model="currency.have">
-                    <option ng-repeat="aCurrency in currenciesArray" value="aCurrency">{{ aCurrency }}</option>
+            <label class="item item-input item-select">
+                <div class="input-label">
+                    Have
+                </div>
+                <select name="have" ng-model="currency.have" ng-change="currencyChanged()" ng-options="aCurrency for aCurrency in currenciesArray">
+                    <option value="0" selected="selected">Currency</option>
                 </select>
             </label>
-            <label class="item item-input item-stacked-label">
-                <span class="input-label">Need</span>
-                <select name="have" ng-model="currency.need">
-                    <option ng-repeat="aCurrency in currenciesArray" value="aCurrency">{{ aCurrency }}</option>
+            <label class="item item-input item-select">
+                <div class="input-label">
+                    Need
+                </div>
+                <select name="have" ng-model="currency.need" ng-change="currencyChanged()" ng-options="aCurrency for aCurrency in currenciesArray">
+                    <option value="0" selected="selected">Currency</option>
                 </select>
             </label>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Exchange Rate</span>
-                <input type="text" placeholder="Asking price" ng-model="product.echangeRate">
+                <input type="text" placeholder="Exchange Rate" ng-model="currency.exchangeRate">
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Amount</span>
+                <input type="text" placeholder="Amount" ng-model="currency.amount">
             </label>
             <label class="item item-input">
                 <textarea placeholder="Description" ng-model="currency.description"></textarea>
+            </label>
+
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">You will get: {{ currency.exchangeRate * currency.amount }}</span>
             </label>
         </div>
         <div class="padding">

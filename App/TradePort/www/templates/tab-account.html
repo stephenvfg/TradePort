@@ -1,9 +1,30 @@
 <ion-view view-title="Account">
-  <ion-content>
-    <ion-list>
-    <ion-toggle  ng-model="settings.enableFriends">
-        Enable Friends
-    </ion-toggle>
-    </ion-list>
-  </ion-content>
+  	<ion-content>
+    	<ion-list>
+	    	<label class="item item-input item-select">
+			    <div class="input-label">Language</div>
+			    <select>
+			    	<option selected>English</option>
+			    	<option>Espanol</option>
+			    	<option>Francais</option>
+			    	<option>Deutsch</option>
+			    	<option>Italiano</option>
+			    </select>
+			</label>
+			<label class="item item-input item-select">
+			    <div class="input-label">Home Country</div>
+			    <select>
+			    	<option selected>England</option>
+			    	<option>United States</option>
+			    	<option>Espana</option>
+			    	<option>France</option>
+			    	<option>Deutschland</option>
+			    	<option>Italia</option>
+			    </select>
+			</label>
+	    	<ion-toggle ng-model="settings.enableFriends">Enable Friends</ion-toggle>
+	    	<ion-toggle ng-model="settings.enableNotifications">Enable Notifications</ion-toggle>
+	    	<ion-toggle ng-model="settings.enableLocation">Enable Location Tracking</ion-toggle>
+    	</ion-list>
+  	</ion-content>
 </ion-view>
