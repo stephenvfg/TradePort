@@ -6,11 +6,12 @@
     <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
     <ion-list>
       <ion-item class="item-remove-animate" ng-repeat="product in products" type="item-text-wrap" href="#/tab/product/{{ product._id }}">
-          <div>{{ product.title }}</div>
-          <div>
+          <div class="items-tab item-photo">{{ product.photoUrl }}</div>
+          <div class="items-tab item-title">{{ product.title }}</div>
+          <div class="items-tab item-desc">
             {{ product.description }}
           </div>
-          <div>
+          <div class="items-tab item-price">
             {{ product.askingPrice }}
           </div>
       </ion-item>
