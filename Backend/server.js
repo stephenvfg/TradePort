@@ -12,7 +12,7 @@ var mongoose = require('mongoose');
 var db = require('./config/db');
 var port = process.env.PORT || 9876;
 
-//mongoose.connect(db.url);
+mongoose.connect(db.url);
 app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(bodyParser.urlencoded({ extended: true }));
