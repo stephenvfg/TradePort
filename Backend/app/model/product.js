@@ -10,7 +10,8 @@ var ProductSchema = new Schema({
 	userId: String,
 	imageId: String,
 	tags: [String],
-	askingPrice: Number
+	askingPrice: Number,
+	sold: {type: Boolean, default: false}
 });
 
 module.exports = mongoose.model('Product', ProductSchema);
