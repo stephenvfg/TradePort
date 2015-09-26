@@ -5,8 +5,11 @@
         <div>{{ product.description }}</div>
         <div>{{ product.askingPrice }}</div>
 
-        <button class="button button-full button-positive span9">
+        <button class="button button-full button-positive" ng-click="buy()" ng-show="!bought">
             Buy
+        </button>
+        <button class="button button-full button-positive" ng-show="bought" disabled>
+            Bought
         </button>
         <button class="button button-positive button-outline">
             Contact

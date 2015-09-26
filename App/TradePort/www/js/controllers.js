@@ -363,14 +363,17 @@ angular.module('starter.controllers', [])
     })
 
 
-    .controller('ProductCtrl', function($scope, $stateParams, Product) {
+    .controller('ProductCtrl', function($scope, $stateParams, Product, Purchase) {
         $scope.product = {};
+        $scope.bought = false;
         Product.get($stateParams.productId).success(function (product) {
             $scope.product = product;
         });
 
         $scope.buy = function () {
-
+            Purchase.create({userId: globalUser._id, itemId: $scope.product.id, type: 'product'}).success(function () {
+                $scope.bought = true;
+            });
         };
     })
 

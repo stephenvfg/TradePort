@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var PurchaseSchema = new Schema({
-    purchaseId: Number,
+    itemId: Number,
     type: String,
     userId: Number
 });

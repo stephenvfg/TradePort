@@ -159,4 +159,22 @@ angular.module('starter.services', [])
         }
       }
     })
+
+
+    .factory('Purchase', function ($http) {
+      return {
+        create: function (purchasesData) {
+          return $http.post(host + '/purchases', purchasesData)
+        },
+        get: function (id) {
+          return $http.get(host + '/purchases/' + id)
+        },
+        all: function (page, limit) {
+          page = page || 0;
+          limit = limit || 10;
+
+          return $http.get(host + '/purchases')
+        }
+      }
+    })
 ;
