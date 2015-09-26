@@ -90,6 +90,28 @@ a.looks-like-google {
 	white-space: normal;
 }
 
+/* product tab details page styles */
+.items-details.item-title {
+    font-weight: 200;
+    font-size: 240%;
+    text-transform: uppercase;
+    font-family: "Helvetica Neue";
+    margin: 10px 0;
+}
+.items-details.item-desc {
+    font-weight: 200;
+    font-family: "Helvetica Neue";
+    font-size: larger;
+}
+.items-details.item-price {
+    font-weight: 400;
+    font-family: "Helvetica Neue";
+    float: right;
+    color: green;
+    font-size: 240%;
+    margin: 20px 0;
+}
+
 /* masonry grid */
 .grid-item { 
 	width: 50%;

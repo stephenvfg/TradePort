@@ -1,9 +1,10 @@
 <ion-view view-title="Item">
     <ion-content class="padding">
         <img ng-repeat="img in product.images" ng-src="{{ img }}" style="width: 64px; height: 64px">
-        <div>{{ product.title }}</div>
-        <div>{{ product.description }}</div>
-        <div>{{ product.askingPrice }}</div>
+        <div class="items-details item-photo"><img src="http://placehold.it/350x225"></div>
+        <div class="items-details item-title">{{ product.title }}</div>
+        <div class="items-details item-desc">{{ product.description }}</div>
+        <div class="items-details item-price">{{ product.askingPrice }}</div>
 
         <button class="button button-full button-positive" ng-click="buy()" ng-show="!bought">
             Buy
