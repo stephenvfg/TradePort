@@ -4,10 +4,10 @@
   </ion-nav-buttons>
   <ion-content class="padding">
     <ion-list>
-      <ion-item class="item-remove-animate" ng-repeat="product in products" type="item-text-wrap" href="#/tab/product/{{product.id}}">
-          <div>Recent Updates</div>
+      <ion-item class="item-remove-animate" ng-repeat="product in products" type="item-text-wrap" href="#/tab/product/{{ product._id }}">
+          <div>{{ product.title }}</div>
           <div>
-            There is a fire in <b>sector 3</b>
+            {{ product.description }}
           </div>
       </ion-item>
     </ion-list>

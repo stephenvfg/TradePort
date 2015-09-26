@@ -1,7 +1,10 @@
 angular.module('starter.controllers', [])
 
     .controller('DashCtrl', function($scope, $state, Product) {
-        $scope.products = Product.all(0, 10);
+        $scope.products = [];
+         Product.all(0, 10).success(function (products) {
+             $scope.products = products;
+         });
 
 
         $scope.trade = function () {
@@ -87,6 +90,9 @@ angular.module('starter.controllers', [])
 
 
     .controller('ProductCtrl', function($scope, $stateParams, Product) {
-        $scope.product = Product.get($stateParams.productId);
+        $scope.product = {};
+        Product.get($stateParams.productId).success(function (product) {
+            $scope.product = product;
+        })
     })
 ;

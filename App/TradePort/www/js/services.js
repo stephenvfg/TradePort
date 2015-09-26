@@ -120,9 +120,7 @@ angular.module('starter.services', [])
         },
 
         get: function (id) {
-          return {
-            id: 1
-          };
+          return $http.get(host + '/products/' + id)
         },
 
         create: function (productData) {
