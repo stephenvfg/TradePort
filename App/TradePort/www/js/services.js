@@ -108,4 +108,28 @@ angular.module('starter.services', [])
           //}
         }
       }
-    });
+    })
+    .factory('Product', function () {
+      return {
+        all: function (page, limit) {
+          page = page || 0;
+          limit = limit || 10;
+
+          return [
+            {id: 1},
+            {id: 2},
+            {id: 3},
+            {id: 4},
+            {id: 5},
+            {id: 6}
+          ]
+        },
+
+        get: function (id) {
+          return {
+            id: 1
+          };
+        }
+      }
+    })
+;

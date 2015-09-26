@@ -13,6 +13,9 @@ var db = require('./config/db');
 var port = process.env.PORT || 9876;
 
 mongoose.connect(db.url);
+
+var cors = require('./app/cors');
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(bodyParser.urlencoded({ extended: true }));
