@@ -15,7 +15,7 @@ module.exports = function (app) {
 			if(err) {
 				res.error('can not create user')
 			}
-			return res.json(JSON.stringify(userRecord))
+			return res.json(userRecord)
 		})
     })
 
@@ -24,7 +24,7 @@ module.exports = function (app) {
     		if(err) {
     			res.error('can not load users')
     		}
-		    return res.json(JSON.stringify(users))
+		    return res.json(users)
 		})
     })
 
@@ -34,7 +34,7 @@ module.exports = function (app) {
     		if(err) {
     			res.error('can not find user')
     		}
-		    return res.json(JSON.stringify(user))
+		    return res.json(user)
 		})
     })
 
@@ -44,7 +44,7 @@ module.exports = function (app) {
 			if(err) {
 				res.error('can not create product')
 			}
-			return res.json(JSON.stringify(productRecord))
+			return res.json(productRecord)
 		})
     })
 
@@ -53,7 +53,7 @@ module.exports = function (app) {
     		if(err) {
     			res.error('can not load products')
     		}
-		    return res.json(JSON.stringify(products))
+		    return res.json(products)
 		})
     })
 
@@ -63,7 +63,7 @@ module.exports = function (app) {
     		if(err) {
     			res.error('can not find product')
     		}
-		    return res.json(JSON.stringify(product))
+		    return res.json(product)
 		})
     })
 };
