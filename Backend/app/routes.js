@@ -2,6 +2,7 @@ var multer  = require('multer')
 var upload = multer({ dest: './public/upload/' })
 var User = require('./model/user')
 var Product = require('./model/product')
+var Image = require('./model/image')
 var clarifaiConf = require('../config/clarifai')
 var fs = require('fs')
 var Currency = require('./model/currency')
@@ -32,10 +33,10 @@ module.exports = function (app) {
 
     app.get('/users/:id', function (req, res) {
     	var userId = req.params.id
-    	User.findOne({ _id: userId }).lean().exec(function (err, user) {
-    		if(err) {
-    			res.error('can not find user')
-    		}
+    	User.findById(userId, function (err, user) {
+			if(err) {
+				res.error('can not find user')
+			}
 		    return res.json(user)
 		})
     })
@@ -50,21 +51,30 @@ module.exports = function (app) {
 		})
 	})
 
-    app.post('/products', upload.single('img'), function (req, res) {
-    	var product = new Product(req.body)
+	app.post('/images', upload.single('img'), function (req, res) {
+    	var image = new Image(req.body)
     	delete req.file.buffer
-    	product.imgProps = req.file;
+    	image.metadata = req.file
+    	image.createdAt = (new Date()).getTime()
+
+    	image.save(function(err, imageRecord) {
+    		fs.rename(req.file.path, 'public/upload/' + image.createdAt + '___' + image.metadata.originalname, function (err) {
+		        if (err) {
+		        	res.error('can not upload file')
+		        }
+				return res.json(imageRecord)
+		    })
+    	})
+    })
+
+    app.post('/products', function (req, res) {
+    	var product = new Product(req.body)
 
 		product.save(function(err, productRecord) {
 			if(err) {
 				res.error('can not create product')
 			}
-			fs.rename(req.file.path, 'public/upload/' + product._id + '___' + product.imgProps.originalname, function (err) {
-		        if (err) {
-		        	res.error('can not upload file')
-		        }
-				return res.json(productRecord)
-		    });
+			return res.json(productRecord)
 		})
     })
 
@@ -79,7 +89,7 @@ module.exports = function (app) {
 
     app.get('/products/:id', function (req, res) {
     	var productId = req.params.id
-    	Product.findOne({ _id: productId }).lean().exec(function (err, product) {
+    	Product.findById(productId, function (err, product) {
     		if(err) {
     			res.error('can not find product')
     		}
@@ -89,14 +99,20 @@ module.exports = function (app) {
 
     app.get('/products/:id/img', function (req, res) {
     	var productId = req.params.id
-    	Product.findOne({ _id: productId }).lean().exec(function (err, product) {
+    	Product.findById(productId, function (err, product) {
     		if(err) {
     			res.error('can not find product')
     		}
-		    res.contentType(product.imgProps.mimetype);
-          	return res.send(fs.readFileSync('public/upload/' + product._id + '___' + product.imgProps.originalname));
+    		Image.findById(product.imageId, function (err, image) {
+	    		if(err) {
+	    			res.error('can not find product')
+	    		}
+			    res.contentType(image.metadata.mimetype)
+          		return res.send(fs.readFileSync('public/upload/' + image.createdAt + '___' + image.metadata.originalname))
+			})
 		})
     })
+
 	app.post('/currencies', function (req, res) {
 		var currency = new Currency(req.body)
 		currency.save(function(err, currencyRecord) {
