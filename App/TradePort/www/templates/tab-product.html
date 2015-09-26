@@ -1,0 +1,8 @@
+<ion-view view-title="Product">
+    <ion-content class="padding">
+        <img ng-repeat="img in product.images" ng-src="{{img}}" style="width: 64px; height: 64px">
+        <p>
+            {{ product.description }}
+        </p>
+    </ion-content>
+</ion-view>

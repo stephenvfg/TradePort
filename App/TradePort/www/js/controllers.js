@@ -1,6 +1,9 @@
 angular.module('starter.controllers', [])
 
-    .controller('DashCtrl', function($scope, $state) {
+    .controller('DashCtrl', function($scope, $state, Product) {
+      $scope.products = Product.all(0, 10);
+
+
       $scope.trade = function () {
         $state.go('tab.trade');
       }
@@ -59,4 +62,10 @@ angular.module('starter.controllers', [])
       $scope.settings = {
         enableFriends: true
       };
-    });
+    })
+
+
+    .controller('ProductCtrl', function($scope, $stateParams, Product) {
+      $scope.product = Product.get($stateParams.productId);
+    })
+;
