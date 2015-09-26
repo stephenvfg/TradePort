@@ -37,4 +37,33 @@ module.exports = function (app) {
 		    return res.json(JSON.stringify(user))
 		})
     })
+
+    app.post('/products', function (req, res) {
+    	var product = new Product(req.body)
+		product.save(function(err, productRecord) {
+			if(err) {
+				res.error('can not create product')
+			}
+			return res.json(JSON.stringify(productRecord))
+		})
+    })
+
+    app.get('/products', function (req, res) {
+    	Product.find({}).lean().exec(function (err, products) {
+    		if(err) {
+    			res.error('can not load products')
+    		}
+		    return res.json(JSON.stringify(products))
+		})
+    })
+
+    app.get('/products/:id', function (req, res) {
+    	var productId = req.params.id
+    	Product.findOne({ _id: productId }).lean().exec(function (err, product) {
+    		if(err) {
+    			res.error('can not find product')
+    		}
+		    return res.json(JSON.stringify(product))
+		})
+    })
 };

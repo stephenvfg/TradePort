@@ -6,7 +6,7 @@ var ProductSchema = new Schema({
 	location: String,
 	lat: Number,
 	long: Number,
-	userId: Number,
+	userId: String,
 	tags: [String],
 	photoUrl: String
 });
