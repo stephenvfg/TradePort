@@ -1,6 +1,10 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope) {})
+.controller('DashCtrl', function($scope, $state) {
+    $scope.trade = function () {
+      $state.go('tab.trade');
+    }
+  })
 
 .controller('ChatsCtrl', function($scope, Chats) {
   // With the new view caching in Ionic, Controllers are only called
@@ -19,6 +23,33 @@ angular.module('starter.controllers', [])
 
 .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
   $scope.chat = Chats.get($stateParams.chatId);
+})
+
+.controller('TradeCtrl', function ($scope, $state, Camera) {
+  $scope.user = {
+    firstName: '',
+    lastName: '',
+    email: ''
+  };
+  $scope.product = {
+    description: '',
+    images: []
+  };
+
+  $scope.addPhoto = function () {
+    Camera.getPicture().then(function(imageURI) {
+      product.images.push(imageURI);
+      //$ionicLoading.hide();
+      $state.go('tab.transactions');
+    }, function(err) {
+      $state.go('tab.transactions');
+      console.err(err);
+    });
+  };
+
+    $scope.trade = function () {
+
+    };
 })
 
 .controller('AccountCtrl', function($scope) {
