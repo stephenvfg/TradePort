@@ -1,14 +1,37 @@
 angular.module('starter.controllers', [])
 
     .controller('DashCtrl', function($scope, $state, Product) {
+        var canLoadMore = true;
         $scope.products = [];
-         Product.all(0, 10).success(function (products) {
-             $scope.products = products;
-         });
 
+
+        $scope.doRefresh = function () {
+            // reset to empty
+            $scope.products = [];
+
+            Product.all(0, 10).success(function (products) {
+                $scope.products = products;
+            });
+        };
 
         $scope.trade = function () {
             $state.go('tab.trade');
+        };
+
+        $scope.canLoadMore = function () {
+            return canLoadMore;
+        };
+
+        $scope.loadMore = function () {
+            canLoadMore = false;
+            Product.all(0, 10).success(function (products) {
+
+                if (!products || products.length == 0)
+                    return;
+                
+                canLoadMore = true;
+                $scope.products = $scope.products.concat(products);
+            });
         }
     })
 
@@ -95,10 +118,28 @@ angular.module('starter.controllers', [])
         })
     })
 
-    .controller('CurrencyCtrl', function ($scope, $state) {
+    .controller('CurrencyCtrl', function ($scope, $state, Currency) {
+        var canLoadMore = true;
+        $scope.currencies = [];
+
         $scope.trade = function () {
             $state.go('tab.trade-currency');
         };
+
+        $scope.canLoadMore = function () {
+            return canLoadMore;
+        };
+
+        $scope.loadMore = function () {
+            canLoadMore = false;
+            Currency.all(0, 10).success(function (currencies) {
+                if (!currencies || currencies.length == 0)
+                    return;
+
+                canLoadMore = true;
+                $scope.currencies = $scope.currencies.concat(currencies);
+            });
+        }
     })
 
     .controller('TradeCurrencyCtrl', function ($scope) {

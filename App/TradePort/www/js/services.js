@@ -142,4 +142,21 @@ angular.module('starter.services', [])
         }
       }
     })
+
+    .factory('Currency', function ($http) {
+      return {
+        create: function (currencyData) {
+          return $http.post(host + '/currencies', currencyData)
+        },
+        get: function (id) {
+          return $http.get(host + '/currencies/' + id)
+        },
+        all: function (page, limit) {
+          page = page || 0;
+          limit = limit || 10;
+
+          return $http.get(host + '/currencies')
+        }
+      }
+    })
 ;
