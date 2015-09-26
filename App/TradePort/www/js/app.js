@@ -104,7 +104,28 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         controller: 'AccountCtrl'
       }
     }
-  });
+  })
+      .state('tab.currency', {
+        url: '/currency',
+        views: {
+          'tab-currency': {
+            templateUrl: 'templates/tab-currency.html',
+            controller: 'CurrencyCtrl'
+          }
+        }
+      })
+
+
+      .state('tab.trade-currency', {
+        url: '/trade-currency',
+        views: {
+          'tab-currency': {
+            templateUrl: 'templates/tab-trade-currency.html',
+            controller: 'TradeCurrencyCtrl'
+          }
+        }
+      })
+  ;
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/dash');

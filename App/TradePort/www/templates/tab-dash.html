@@ -1,19 +1,23 @@
-<ion-view view-title="Around you">
+<ion-view view-title="Item Exchanges">
   <ion-nav-buttons side="right">
-    <button class="button button-clear" ng-click="trade()">Trade</button>
+    <button class="button button-clear" ng-click="trade()"><i class="ion-plus-round"></i> Trade</button>
   </ion-nav-buttons>
   <ion-content class="padding">
+    <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
     <ion-list>
-      <ion-item class="item-remove-animate" ng-repeat="product in products" type="item-text-wrap" href="#/tab/product/{{ product._id }}">
-          <div>{{ product.title }}</div>
-          <div>
-            {{ product.description }}
+      <div class="grid">
+        <ion-item class="item-remove-animate grid-item" ng-repeat="product in products" type="item-text-wrap" href="#/tab/product/{{ product._id }}">
+          <div class="items-tab item-photo"><img src="http://placehold.it/140x100"></div>
+          <div class="items-tab item-title">{{ product.title }}</div>
+          <div class="items-tab item-desc">
+            {{ product.description | limitTo:10 }} ...
           </div>
-          <div>
+          <div class="items-tab item-price">
             {{ product.askingPrice }}
           </div>
-      </ion-item>
+        </ion-item>
+      </div>
     </ion-list>
-
+    <ion-infinite-scroll ng-if="canLoadMore()" on-infinite="loadMore()" distance="15%"></ion-infinite-scroll>
   </ion-content>
 </ion-view>
