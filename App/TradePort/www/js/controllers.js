@@ -235,13 +235,15 @@ var currenciesRates = [{
 
 angular.module('starter.controllers', [])
 
-    .controller('DashCtrl', function($scope, $state, Product) {
+    .controller('DashCtrl', function($scope, $state, Product, $ionicScrollDelegate) {
         var canLoadMore = true;
         $scope.products = [];
 
         $scope.$on('$ionicView.enter', function(e) {
             canLoadMore = true;
             $scope.products = [];
+            $scope.loadMore();
+            $ionicScrollDelegate.resize();
         });
 
         $scope.doRefresh = function () {
@@ -254,6 +256,7 @@ angular.module('starter.controllers', [])
                 canLoadMore = true;
             }).finally(function() {
                 $scope.$broadcast('scroll.refreshComplete');
+                $ionicScrollDelegate.resize();
             });
         };
 
@@ -268,13 +271,14 @@ angular.module('starter.controllers', [])
         $scope.loadMore = function () {
             canLoadMore = false;
             Product.all(0, 10).success(function (products) {
-                $scope.$broadcast('scroll.infiniteScrollComplete');
 
                 if (!products || products.length == 0)
                     return;
 
                 canLoadMore = true;
                 $scope.products = $scope.products.concat(products);
+                $scope.$broadcast('scroll.infiniteScrollComplete');
+                $ionicScrollDelegate.resize();
             });
         }
     })
@@ -362,9 +366,16 @@ angular.module('starter.controllers', [])
         })
     })
 
-    .controller('CurrencyCtrl', function ($scope, $state, Currency) {
+    .controller('CurrencyCtrl', function ($scope, $state, Currency, $ionicScrollDelegate) {
         var canLoadMore = true;
         $scope.currencies = [];
+
+        $scope.$on('$ionicView.enter', function(e) {
+            canLoadMore = true;
+            $scope.currencies = [];
+            $scope.loadMore();
+            $ionicScrollDelegate.resize();
+        });
 
         $scope.trade = function () {
             $state.go('tab.trade-currency');
@@ -380,6 +391,7 @@ angular.module('starter.controllers', [])
                 canLoadMore = true;
             }).finally(function() {
                 $scope.$broadcast('scroll.refreshComplete');
+                $ionicScrollDelegate.resize();
             });
         };
 
@@ -395,6 +407,8 @@ angular.module('starter.controllers', [])
 
                 canLoadMore = true;
                 $scope.currencies = $scope.currencies.concat(currencies);
+                $scope.$broadcast('scroll.infiniteScrollComplete');
+                $ionicScrollDelegate.resize();
             });
         }
     })
