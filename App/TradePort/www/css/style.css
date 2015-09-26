@@ -36,3 +36,7 @@
 	width: 50%;
 	float: left;
 }
+
+[name="tab-dash"] .item-photo img {
+    width: 100%;
+}
