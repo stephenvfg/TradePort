@@ -94,4 +94,8 @@ angular.module('starter.controllers', [])
             $scope.product = product;
         })
     })
+
+.controller('CurrencyCtrl', function ($scope) {
+
+    })
 ;
