@@ -1,4 +1,26 @@
-/* Changing navbar brackgrounds to be teal color, title text to be white */
+/* landing page styles */
+.landing-body {
+	background: url(../img/bg.jpg) no-repeat center center fixed;
+	 -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.landing-body img {
+	max-width: 80%;
+	margin: 10% auto 0;
+	display: block;
+}
+.landing-mkt {
+	color: #fff;
+	font-weight: 200;
+	font-size: 260%;
+	width: 80%;
+	margin: 50px auto 70px;
+	text-align: center;
+}
+
+/* Changing navbar backgrounds to be teal color, title text to be white */
 .bar.bar-stable {
 	background-color: #009688;
 }
@@ -15,6 +37,19 @@
 .button.button-positive {
     border-color: #009688;
     background-color: #009688;
+}
+ion-tabs.tabs-color-active-positive .tab-item.tab-item-active {
+	color: #009688;
+}
+.fb-button {
+	background-color: #3b5998;
+	color: #fff;
+	border: none;
+}
+.google-button {
+	background-color: #d32f2f;
+	color: #fff;
+	border: none;
 }
 
 /* make text look like a link */
