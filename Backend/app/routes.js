@@ -59,7 +59,7 @@ module.exports = function (app) {
     })
 
     app.get('/products', function (req, res) {
-    	Product.find({}).lean().exec(function (err, products) {
+    	Product.find({}).sort({'_id': 'desc'}).lean().exec(function (err, products) {
     		if(err) {
     			res.error('can not load products')
     		}
