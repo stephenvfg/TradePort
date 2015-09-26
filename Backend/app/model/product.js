@@ -2,7 +2,6 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var ProductSchema = new Schema({
-	id: Number,
 	description: String,
 	location: String,
 	lat: Number,
