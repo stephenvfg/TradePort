@@ -268,6 +268,7 @@ angular.module('starter.controllers', [])
         $scope.loadMore = function () {
             canLoadMore = false;
             Product.all(0, 10).success(function (products) {
+                $scope.$broadcast('scroll.infiniteScrollComplete');
 
                 if (!products || products.length == 0)
                     return;
@@ -398,7 +399,7 @@ angular.module('starter.controllers', [])
         }
     })
 
-    .controller('TradeCurrencyCtrl', function ($scope) {
+    .controller('TradeCurrencyCtrl', function ($scope, User, Currency) {
         $scope.currenciesArray = ["USD", "EUR", "GBP", "JPY", "CHF", "CAD", "AUD", "ZAR", "CNY", "SGD", "HKD", "INR", "AED"];
         function resetData() {
             $scope.user = globalUser;
