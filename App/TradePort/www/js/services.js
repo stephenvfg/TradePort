@@ -47,4 +47,65 @@ angular.module('starter.services', [])
       return null;
     }
   };
-});
+})
+
+    .factory('Camera', function($q, $http) {
+      // "data:image/jpeg;base64,"+
+      var dataURItoBlob = function(dataURI) {
+        // convert base64/URLEncoded data component to raw binary data held in a string
+        var byteString = atob(dataURI.split(',')[1]);
+        var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+        var ab = new ArrayBuffer(byteString.length);
+        var ia = new Uint8Array(ab);
+        for (var i = 0; i < byteString.length; i++)
+        {
+          ia[i] = byteString.charCodeAt(i);
+        }
+
+        var bb = new Blob([ab], { "type": mimeString });
+        return bb;
+      };
+
+
+      return {
+        getPicture: function(options) {
+          var q = $q.defer();
+
+          navigator.camera.getPicture(function(result) {
+
+            var options = new FileUploadOptions();
+            options.fileKey = "post";
+            options.chunkedMode = false;
+            //var params = {};
+            //params.user_token = localStorage.getItem('auth_token');
+            //params.user_email = localStorage.getItem('email');
+            //options.params = params;
+
+            var ft = new FileTransfer();
+            ft.upload(result, encodeURI(host + '/photo'), function () {
+              q.resolve(result);
+            }, function (err) {
+              q.reject(err);
+            }, options);
+          }, function(err) {
+            q.reject(err);
+          }, options);
+
+          return q.promise;
+
+          //navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
+          //  destinationType: Camera.DestinationType.DATA_URL
+          //});
+          //
+          //function onSuccess(imageData) {
+          //  var image = document.getElementById('myImage');
+          //  image.src = "data:image/jpeg;base64," + imageData;
+          //}
+          //
+          //function onFail(message) {
+          //  alert('Failed because: ' + message);
+          //}
+        }
+      }
+    });
