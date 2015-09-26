@@ -6,3 +6,15 @@
 .bar-stable .button.button-clear {
 	color: #fff;
 }
+
+/* product tab styles */
+.items-tab.item-title {
+    font-weight: 200;
+    font-size: larger;
+    text-transform: uppercase;
+    font-family: "Helvetica Neue";
+}
+.items-tab.item-desc {
+    font-weight: 200;
+    font-family: "Helvetica Neue";
+}
