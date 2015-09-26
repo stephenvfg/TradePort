@@ -9,7 +9,8 @@ var ProductSchema = new Schema({
 	long: Number,
 	userId: String,
 	tags: [String],
-	photoUrl: String,
+	imgBuffer: Buffer,
+	imgProps: Object,
 	askingPrice: Number
 });
 

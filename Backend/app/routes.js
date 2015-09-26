@@ -1,8 +1,9 @@
-/**
- * Created by Vadym on 26/09/15.
- */
+var multer  = require('multer')
+var upload = multer({ dest: './public/upload/' })
 var User = require('./model/user')
 var Product = require('./model/product')
+var clarifaiConf = require('../config/clarifai')
+var fs = require('fs')
 
 module.exports = function (app) {
     app.get('/', function (req, res) {
@@ -48,13 +49,21 @@ module.exports = function (app) {
 		})
 	})
 
-    app.post('/products', function (req, res) {
+    app.post('/products', upload.single('img'), function (req, res) {
     	var product = new Product(req.body)
+    	delete req.file.buffer
+    	product.imgProps = req.file;
+
 		product.save(function(err, productRecord) {
 			if(err) {
 				res.error('can not create product')
 			}
-			return res.json(productRecord)
+			fs.rename(req.file.path, 'public/upload/' + product._id + '___' + product.imgProps.originalname, function (err) {
+		        if (err) {
+		        	res.error('can not upload file')
+		        }
+				return res.json(productRecord)
+		    });
 		})
     })
 
@@ -74,6 +83,17 @@ module.exports = function (app) {
     			res.error('can not find product')
     		}
 		    return res.json(product)
+		})
+    })
+
+    app.get('/products/:id/img', function (req, res) {
+    	var productId = req.params.id
+    	Product.findOne({ _id: productId }).lean().exec(function (err, product) {
+    		if(err) {
+    			res.error('can not find product')
+    		}
+		    res.contentType(product.imgProps.mimetype);
+          	return res.send(fs.readFileSync('public/upload/' + product._id + '___' + product.imgProps.originalname));
 		})
     })
 };
