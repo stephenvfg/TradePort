@@ -33,18 +33,16 @@ angular.module('starter.controllers', [])
 
     .controller('TradeCtrl', function ($scope, $state, Camera, User, Product) {
         function resetData() {
-            $scope.user = {
-                name: '',
-                email: '',
-                userId: 0
-            };
+            $scope.user = globalUser;
             $scope.product = {
+                title: '',
                 description: '',
-                images: []
+                images: [],
+                askingPrice: ''
             };
         }
         function createProduct(userId) {
-            $scope.product.userId = userId
+            $scope.product.userId = userId;
             Product.create($scope.product).success(function () {
                 resetData();
             })
@@ -72,6 +70,7 @@ angular.module('starter.controllers', [])
                 if (!users) {
                     User.create($scope.user).success(function (userObj) {
                         if (userObj._id) {
+                            globalUser = userObj;
                             createProduct(userObj._id)
                         }
                     })

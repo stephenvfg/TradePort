@@ -12,8 +12,13 @@
                 <input type="text" placeholder="Title" ng-model="product.title">
             </label>
             <label class="item item-input">
-                <textarea placeholder="Description">{{ product.description }}</textarea>
+                <textarea placeholder="Description" ng-model="product.description"></textarea>
             </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Price</span>
+                <input type="text" placeholder="Asking price" ng-model="product.askingPrice">
+            </label>
+            <img src="" alt="" ng-repeat="image in product.images">
         </div>
         <div class="padding">
             <button class="button button-block button-outline button-positive" ng-click="addPhoto()">Add photo</button>
