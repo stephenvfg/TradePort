@@ -4,13 +4,21 @@ angular.module('starter.controllers', [])
         var canLoadMore = true;
         $scope.products = [];
 
+        $scope.$on('$ionicView.enter', function(e) {
+            canLoadMore = true;
+            $scope.products = [];
+        });
 
         $scope.doRefresh = function () {
+            canLoadMore = false;
             // reset to empty
             $scope.products = [];
 
             Product.all(0, 10).success(function (products) {
                 $scope.products = products;
+                canLoadMore = true;
+            }).finally(function() {
+                $scope.$broadcast('scroll.refreshComplete');
             });
         };
 
@@ -28,7 +36,7 @@ angular.module('starter.controllers', [])
 
                 if (!products || products.length == 0)
                     return;
-                
+
                 canLoadMore = true;
                 $scope.products = $scope.products.concat(products);
             });
@@ -126,6 +134,19 @@ angular.module('starter.controllers', [])
             $state.go('tab.trade-currency');
         };
 
+        $scope.doRefresh = function () {
+            canLoadMore = false;
+            // reset to empty
+            $scope.currencies = [];
+
+            Currency.all(0, 10).success(function (currencies) {
+                $scope.currencies = currencies;
+                canLoadMore = true;
+            }).finally(function() {
+                $scope.$broadcast('scroll.refreshComplete');
+            });
+        };
+
         $scope.canLoadMore = function () {
             return canLoadMore;
         };
@@ -143,6 +164,43 @@ angular.module('starter.controllers', [])
     })
 
     .controller('TradeCurrencyCtrl', function ($scope) {
+        $scope.currenciesArray = ['EUR', 'USD', 'GPB', 'INR', 'AUD', 'CAD', 'SGD', 'CHF'];
+        function resetData() {
+            $scope.user = globalUser;
+            $scope.currency = {
+                description: '',
+                amount: 0,
+                have: '',
+                need: '',
+                exchangeRate: ''
+            };
+        }
+        function createCurrency(userId) {
+            $scope.currency.userId = userId;
+            Currency.create($scope.currency).success(function () {
+                resetData();
+            })
+        }
 
+        resetData();
+
+        $scope.trade = function () {
+            if (!$scope.user.email) {
+                return;
+            }
+
+            User.getByEmail($scope.user.email).success(function (users) {
+                if (!users) {
+                    User.create($scope.user).success(function (userObj) {
+                        if (userObj._id) {
+                            globalUser = userObj;
+                            createCurrency(userObj._id)
+                        }
+                    })
+                } else {
+                    createCurrency(users._id)
+                }
+            })
+        };
     })
 ;

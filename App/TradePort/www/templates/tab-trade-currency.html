@@ -8,15 +8,25 @@
             <label class="item item-input">
                 <input type="email" placeholder="Email" ng-model="user.email">
             </label>
-            <label class="item item-input">
-                <input type="text" placeholder="Title" ng-model="product.title">
-            </label>
-            <label class="item item-input">
-                <textarea placeholder="Description" ng-model="product.description"></textarea>
+
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Have</span>
+                <select name="have" ng-model="currency.have">
+                    <option ng-repeat="aCurrency in currenciesArray" value="aCurrency">{{ aCurrency }}</option>
+                </select>
             </label>
             <label class="item item-input item-stacked-label">
-                <span class="input-label">Price</span>
-                <input type="text" placeholder="Asking price" ng-model="product.askingPrice">
+                <span class="input-label">Need</span>
+                <select name="have" ng-model="currency.need">
+                    <option ng-repeat="aCurrency in currenciesArray" value="aCurrency">{{ aCurrency }}</option>
+                </select>
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Exchange Rate</span>
+                <input type="text" placeholder="Asking price" ng-model="product.echangeRate">
+            </label>
+            <label class="item item-input">
+                <textarea placeholder="Description" ng-model="currency.description"></textarea>
             </label>
         </div>
         <div class="padding">

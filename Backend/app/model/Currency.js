@@ -12,7 +12,8 @@ var CurrencySchema = new Schema({
     have: String,
     need: String,
     amount: Number,
-    exchangeRate: Number
+    exchangeRate: Number,
+    description: String
 });
 
 module.exports = mongoose.model('Currency', CurrencySchema);
