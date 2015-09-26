@@ -1,6 +1,15 @@
 <ion-view view-title="Account">
   	<ion-content>
     	<ion-list>
+    		<div class="item item-divider">Personal Information</div>
+    		<a class="item item-avatar" href="#">
+		        <img src="https://avatars3.githubusercontent.com/u/11214?v=3&s=460">
+		        <h2>Stephen Gaschignard</h2>
+		        <p class="looks-like-link">Edit Information</p>
+		    </a>
+		    <a class="item looks-like-fb" href="#"><i class="icon ion-social-facebook"></i> &nbsp; Connect with Facebook</a>
+		    <a class="item looks-like-google" href="#"><i class="icon ion-social-google"></i> &nbsp; Connect with Google</a>
+    		<div class="item item-divider">Localization</div>
 	    	<label class="item item-input item-select">
 			    <div class="input-label">Language</div>
 			    <select>
@@ -22,6 +31,7 @@
 			    	<option>Italia</option>
 			    </select>
 			</label>
+			<div class="item item-divider">Permissions</div>
 	    	<ion-toggle ng-model="settings.enableFriends">Enable Friends</ion-toggle>
 	    	<ion-toggle ng-model="settings.enableNotifications">Enable Notifications</ion-toggle>
 	    	<ion-toggle ng-model="settings.enableLocation">Enable Location Tracking</ion-toggle>

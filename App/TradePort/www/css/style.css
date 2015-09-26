@@ -7,6 +7,27 @@
 	color: #fff;
 }
 
+/* change button styles */
+.button.button-positive.button-outline {
+    border-color: #009688;
+    color: #009688;
+}
+.button.button-positive {
+    border-color: #009688;
+    background-color: #009688;
+}
+
+/* make text look like a link */
+p.looks-like-link {
+	color: #387EF5;
+}
+a.looks-like-fb {
+	color: #3b5998;
+}
+a.looks-like-google {
+	color: #d32f2f;
+}
+
 /* product tab styles */
 .items-tab.item-title {
     font-weight: 200;
@@ -26,6 +47,9 @@
 }
 .item-complex .item-content {
 	padding-right: 20px;
+}
+.grid .item-complex .item-content {
+	height: 200px;
 }
 .item-content {
 	white-space: normal;

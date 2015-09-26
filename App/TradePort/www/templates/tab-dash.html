@@ -5,7 +5,7 @@
   <ion-content class="padding">
     <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
     <ion-list>
-      <div class="grid">
+      <div class="grid js-masonry" data-masonry-options='{ "itemSelector": ".grid-item", "columWidth": 200 }'>
         <ion-item class="item-remove-animate grid-item" ng-repeat="product in products" type="item-text-wrap" href="#/tab/product/{{ product._id }}">
           <div class="items-tab item-photo"><img src="http://placehold.it/140x100"></div>
           <div class="items-tab item-title">{{ product.title }}</div>
@@ -13,7 +13,7 @@
             {{ product.description | limitTo: 20 }} {{ product.description.length > 20 ? '...' : '' }}
           </div>
           <div class="items-tab item-price">
-            {{ product.askingPrice }} {{ product.askingPrice == null ? '##' : '' }}
+            {{ product.askingPrice }}
           </div>
         </ion-item>
       </div>
