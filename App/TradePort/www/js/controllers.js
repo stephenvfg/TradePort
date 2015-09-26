@@ -287,14 +287,52 @@ angular.module('starter.controllers', [])
         }
     })
 
-    .controller('ChatsCtrl', function($scope, Chats) {
-        // With the new view caching in Ionic, Controllers are only called
-        // when they are recreated or on app start, instead of every page change.
-        // To listen for when this page is active (for example, to refresh data),
-        // listen for the $ionicView.enter event:
-        //
-        //$scope.$on('$ionicView.enter', function(e) {
-        //});
+    .controller('ChatsCtrl', function($scope, Chats, Purchase) {
+        var canLoadMore = true;
+        $scope.purchases = [];
+
+        $scope.$on('$ionicView.enter', function(e) {
+            canLoadMore = true;
+            $scope.purchases = [];
+            $scope.loadMore();
+            $ionicScrollDelegate.resize();
+        });
+
+        $scope.doRefresh = function () {
+            canLoadMore = false;
+            // reset to empty
+            $scope.purchases = [];
+
+            Purchase.all(0, 10).success(function (purchases) {
+                $scope.purchases = purchases;
+                if (purchases.length >= 10) {
+                    canLoadMore = true;
+                }
+            }).finally(function() {
+                $scope.$broadcast('scroll.refreshComplete');
+                $ionicScrollDelegate.resize();
+            });
+        };
+
+        $scope.canLoadMore = function () {
+            return canLoadMore;
+        };
+
+        $scope.loadMore = function () {
+            canLoadMore = false;
+            Purchase.all(0, 10).success(function (purchases) {
+
+                if (!purchases || purchases.length == 0)
+                    return;
+
+                if (purchases.length >= 10) {
+                    canLoadMore = true;
+                }
+                $scope.purchases = $scope.purchases.concat(purchases);
+                $scope.$broadcast('scroll.infiniteScrollComplete');
+                $ionicScrollDelegate.resize();
+            });
+        };
 
         $scope.chats = Chats.all();
         $scope.remove = function(chat) {
