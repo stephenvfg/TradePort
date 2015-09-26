@@ -253,7 +253,9 @@ angular.module('starter.controllers', [])
 
             Product.all(0, 10).success(function (products) {
                 $scope.products = products;
-                canLoadMore = true;
+                if (products.length >= 10) {
+                    canLoadMore = true;
+                }
             }).finally(function() {
                 $scope.$broadcast('scroll.refreshComplete');
                 $ionicScrollDelegate.resize();
@@ -275,7 +277,9 @@ angular.module('starter.controllers', [])
                 if (!products || products.length == 0)
                     return;
 
-                canLoadMore = true;
+                if (products.length >= 10) {
+                    canLoadMore = true;
+                }
                 $scope.products = $scope.products.concat(products);
                 $scope.$broadcast('scroll.infiniteScrollComplete');
                 $ionicScrollDelegate.resize();
@@ -363,7 +367,11 @@ angular.module('starter.controllers', [])
         $scope.product = {};
         Product.get($stateParams.productId).success(function (product) {
             $scope.product = product;
-        })
+        });
+
+        $scope.buy = function () {
+
+        };
     })
 
     .controller('CurrencyCtrl', function ($scope, $state, Currency, $ionicScrollDelegate) {

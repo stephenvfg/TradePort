@@ -6,6 +6,7 @@ var Image = require('./model/image')
 var clarifaiConf = require('../config/clarifai')
 var fs = require('fs')
 var Currency = require('./model/currency')
+var Purchase = require('./model/purchase')
 
 module.exports = function (app) {
     app.get('/', function (req, res) {
@@ -79,7 +80,7 @@ module.exports = function (app) {
     })
 
     app.get('/products', function (req, res) {
-    	Product.find({}).sort({'_id': 'desc'}).lean().exec(function (err, products) {
+    	Product.find({sold: false}).sort({'_id': 'desc'}).lean().exec(function (err, products) {
     		if(err) {
     			res.error('can not load products')
     		}
@@ -139,6 +140,36 @@ module.exports = function (app) {
 				res.error('can not find product')
 			}
 			return res.json(currency)
+		})
+	})
+
+
+	app.post('/purchases', function (req, res) {
+		var purchase = new Purchase(req.body)
+		purchase.save(function(err, purchaseRecord) {
+			if(err) {
+				res.error('can not create product')
+			}
+			return res.json(purchaseRecord)
+		})
+	})
+
+	app.get('/purchases', function (req, res) {
+		Purchase.find({}).sort({'_id': 'desc'}).lean().exec(function (err, purchases) {
+			if(err) {
+				res.error('can not load products')
+			}
+			return res.json(purchases)
+		})
+	})
+
+	app.get('/purchases/:id', function (req, res) {
+		var purchasesId = req.params.id
+		Purchase.findOne({ _id: purchasesId }).lean().exec(function (err, purchase) {
+			if(err) {
+				res.error('can not find product')
+			}
+			return res.json(purchase)
 		})
 	})
 };
