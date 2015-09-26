@@ -38,6 +38,16 @@ module.exports = function (app) {
 		})
     })
 
+	app.get('/users/email/:email', function (req, res) {
+		var email = req.params.email
+		User.findOne({ email: email }).lean().exec(function (err, user) {
+			if(err) {
+				res.error('can not find user')
+			}
+			return res.json(JSON.stringify(user))
+		})
+	})
+
     app.post('/products', function (req, res) {
     	var product = new Product(req.body)
 		product.save(function(err, productRecord) {
