@@ -95,7 +95,13 @@ angular.module('starter.controllers', [])
         })
     })
 
-.controller('CurrencyCtrl', function ($scope) {
+    .controller('CurrencyCtrl', function ($scope) {
 
+    })
+
+    .controller('TradeCurrencyCtrl', function ($scope, $state) {
+        $scope.trade = function () {
+            $state.go('tab.trade-currency');
+        };
     })
 ;

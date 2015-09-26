@@ -1,0 +1,13 @@
+<ion-view view-title="Around you">
+    <ion-nav-buttons side="right">
+        <button class="button button-clear" ng-click="trade()">Trade</button>
+    </ion-nav-buttons>
+    <ion-content class="padding">
+        <ion-list>
+            <ion-item class="item-remove-animate" ng-repeat="currency in currencies" type="item-text-wrap" href="#/tab/currency/{{ currency._id }}">
+
+            </ion-item>
+        </ion-list>
+
+    </ion-content>
+</ion-view>

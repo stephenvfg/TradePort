@@ -1,0 +1,26 @@
+<ion-view view-title="Trade Currency">
+
+    <div class="content has-header">
+        <div class="list">
+            <label class="item item-input">
+                <input type="text" placeholder="Full Name" ng-model="user.name">
+            </label>
+            <label class="item item-input">
+                <input type="email" placeholder="Email" ng-model="user.email">
+            </label>
+            <label class="item item-input">
+                <input type="text" placeholder="Title" ng-model="product.title">
+            </label>
+            <label class="item item-input">
+                <textarea placeholder="Description" ng-model="product.description"></textarea>
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Price</span>
+                <input type="text" placeholder="Asking price" ng-model="product.askingPrice">
+            </label>
+        </div>
+        <div class="padding">
+            <button class="button button-block button-positive" ng-click="trade()">Trade</button>
+        </div>
+    </div>
+</ion-view>
