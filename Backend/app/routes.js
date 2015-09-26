@@ -44,7 +44,7 @@ module.exports = function (app) {
 			if(err) {
 				res.error('can not find user')
 			}
-			return res.json(JSON.stringify(user))
+			return res.json(user)
 		})
 	})
 

@@ -1,3 +1,4 @@
+var host = '//localhost:9876';
 angular.module('starter.services', [])
 
 .factory('Chats', function() {
@@ -109,26 +110,37 @@ angular.module('starter.services', [])
         }
       }
     })
-    .factory('Product', function () {
+    .factory('Product', function ($http) {
       return {
         all: function (page, limit) {
           page = page || 0;
           limit = limit || 10;
 
-          return [
-            {id: 1},
-            {id: 2},
-            {id: 3},
-            {id: 4},
-            {id: 5},
-            {id: 6}
-          ]
+          return $http.get(host + '/products')
         },
 
         get: function (id) {
           return {
             id: 1
           };
+        },
+
+        create: function (productData) {
+          return $http.post(host +'/products', productData);
+        }
+      }
+    })
+
+    .factory('User', function ($http) {
+      return {
+        create: function (userData) {
+          return $http.post(host + '/users', userData)
+        },
+        get: function (id) {
+          return $http.get(host + '/users/' + id)
+        },
+        getByEmail: function (email) {
+          return $http.get(host +'/users/email/' + email)
         }
       }
     })

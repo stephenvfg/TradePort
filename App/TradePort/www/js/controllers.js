@@ -1,71 +1,92 @@
 angular.module('starter.controllers', [])
 
     .controller('DashCtrl', function($scope, $state, Product) {
-      $scope.products = Product.all(0, 10);
+        $scope.products = Product.all(0, 10);
 
 
-      $scope.trade = function () {
-        $state.go('tab.trade');
-      }
+        $scope.trade = function () {
+            $state.go('tab.trade');
+        }
     })
 
     .controller('ChatsCtrl', function($scope, Chats) {
-      // With the new view caching in Ionic, Controllers are only called
-      // when they are recreated or on app start, instead of every page change.
-      // To listen for when this page is active (for example, to refresh data),
-      // listen for the $ionicView.enter event:
-      //
-      //$scope.$on('$ionicView.enter', function(e) {
-      //});
+        // With the new view caching in Ionic, Controllers are only called
+        // when they are recreated or on app start, instead of every page change.
+        // To listen for when this page is active (for example, to refresh data),
+        // listen for the $ionicView.enter event:
+        //
+        //$scope.$on('$ionicView.enter', function(e) {
+        //});
 
-      $scope.chats = Chats.all();
-      $scope.remove = function(chat) {
-        Chats.remove(chat);
-      };
+        $scope.chats = Chats.all();
+        $scope.remove = function(chat) {
+            Chats.remove(chat);
+        };
     })
 
     .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-      $scope.chat = Chats.get($stateParams.chatId);
+        $scope.chat = Chats.get($stateParams.chatId);
     })
 
-    .controller('TradeCtrl', function ($scope, $state, Camera) {
-      function resetData() {
-        $scope.user = {
-          fullName: '',
-          email: ''
-        };
-        $scope.product = {
-          description: '',
-          images: []
-        };
-      }
+    .controller('TradeCtrl', function ($scope, $state, Camera, User, Product) {
+        function resetData() {
+            $scope.user = {
+                name: '',
+                email: '',
+                userId: 0
+            };
+            $scope.product = {
+                description: '',
+                images: []
+            };
+        }
+        function createProduct(userId) {
+            $scope.product.userId = userId
+            Product.create($scope.product).success(function () {
+                resetData();
+            })
+        }
 
-      resetData();
-
-      $scope.addPhoto = function () {
-        Camera.getPicture().then(function(imageURI) {
-          product.images.push(imageURI);
-          //$ionicLoading.hide();
-          $state.go('tab.transactions');
-        }, function(err) {
-          $state.go('tab.transactions');
-          console.err(err);
-        });
-      };
-
-      $scope.trade = function () {
         resetData();
-      };
+
+        $scope.addPhoto = function () {
+            Camera.getPicture().then(function(imageURI) {
+                product.images.push(imageURI);
+                //$ionicLoading.hide();
+                $state.go('tab.transactions');
+            }, function(err) {
+                $state.go('tab.transactions');
+                console.err(err);
+            });
+        };
+
+        $scope.trade = function () {
+            if (!$scope.user.email) {
+                return;
+            }
+
+            User.getByEmail($scope.user.email).success(function (users) {
+                if (!users) {
+                    User.create($scope.user).success(function (userObj) {
+                        if (userObj._id) {
+                            createProduct(userObj._id)
+                        }
+                    })
+                } else {
+                    createProduct(users._id)
+                }
+            })
+        };
     })
 
     .controller('AccountCtrl', function($scope) {
-      $scope.settings = {
-        enableFriends: true
-      };
+        $scope.settings = {
+            enableFriends: true
+        };
     })
 
 
     .controller('ProductCtrl', function($scope, $stateParams, Product) {
-      $scope.product = Product.get($stateParams.productId);
+        $scope.product = Product.get($stateParams.productId);
     })
 ;
