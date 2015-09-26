@@ -4,17 +4,18 @@
   </ion-nav-buttons>
   <ion-content class="padding">
     <ion-list>
-      <ion-item class="item-remove-animate" ng-repeat="product in products" type="item-text-wrap" href="#/tab/product/{{ product._id }}">
-          <div class="items-tab item-photo">{{ product.photoUrl }}</div>
+      <div class="grid">
+        <ion-item class="item-remove-animate grid-item" ng-repeat="product in products" type="item-text-wrap" href="#/tab/product/{{ product._id }}">
+          <div class="items-tab item-photo"><img src="http://placehold.it/140x100"></div>
           <div class="items-tab item-title">{{ product.title }}</div>
           <div class="items-tab item-desc">
-            {{ product.description }}
+            {{ product.description | limitTo:10 }} ...
           </div>
           <div class="items-tab item-price">
             {{ product.askingPrice }}
           </div>
-      </ion-item>
+        </ion-item>
+      </div>
     </ion-list>
-
   </ion-content>
 </ion-view>

@@ -18,3 +18,9 @@
     font-weight: 200;
     font-family: "Helvetica Neue";
 }
+
+/* masonry grid */
+.grid-item { 
+	width: 50%;
+	float: left;
+}
