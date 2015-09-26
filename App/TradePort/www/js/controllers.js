@@ -1,59 +1,62 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope, $state) {
-    $scope.trade = function () {
-      $state.go('tab.trade');
-    }
-  })
+    .controller('DashCtrl', function($scope, $state) {
+      $scope.trade = function () {
+        $state.go('tab.trade');
+      }
+    })
 
-.controller('ChatsCtrl', function($scope, Chats) {
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
+    .controller('ChatsCtrl', function($scope, Chats) {
+      // With the new view caching in Ionic, Controllers are only called
+      // when they are recreated or on app start, instead of every page change.
+      // To listen for when this page is active (for example, to refresh data),
+      // listen for the $ionicView.enter event:
+      //
+      //$scope.$on('$ionicView.enter', function(e) {
+      //});
 
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  };
-})
+      $scope.chats = Chats.all();
+      $scope.remove = function(chat) {
+        Chats.remove(chat);
+      };
+    })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
-})
+    .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
+      $scope.chat = Chats.get($stateParams.chatId);
+    })
 
-.controller('TradeCtrl', function ($scope, $state, Camera) {
-  $scope.user = {
-    firstName: '',
-    lastName: '',
-    email: ''
-  };
-  $scope.product = {
-    description: '',
-    images: []
-  };
+    .controller('TradeCtrl', function ($scope, $state, Camera) {
+      function resetData() {
+        $scope.user = {
+          fullName: '',
+          email: ''
+        };
+        $scope.product = {
+          description: '',
+          images: []
+        };
+      }
 
-  $scope.addPhoto = function () {
-    Camera.getPicture().then(function(imageURI) {
-      product.images.push(imageURI);
-      //$ionicLoading.hide();
-      $state.go('tab.transactions');
-    }, function(err) {
-      $state.go('tab.transactions');
-      console.err(err);
+      resetData();
+
+      $scope.addPhoto = function () {
+        Camera.getPicture().then(function(imageURI) {
+          product.images.push(imageURI);
+          //$ionicLoading.hide();
+          $state.go('tab.transactions');
+        }, function(err) {
+          $state.go('tab.transactions');
+          console.err(err);
+        });
+      };
+
+      $scope.trade = function () {
+        resetData();
+      };
+    })
+
+    .controller('AccountCtrl', function($scope) {
+      $scope.settings = {
+        enableFriends: true
+      };
     });
-  };
-
-    $scope.trade = function () {
-
-    };
-})
-
-.controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
-});
