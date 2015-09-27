@@ -2,9 +2,9 @@
   <ion-content>
     <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
     <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in chats" type="item-text-wrap" href="#/tab/chats/{{chat.id}}">
-        <img ng-src="{{chat.face}}">
-        <h2>{{chat.name}}</h2>
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="purchase in purchases" type="item-text-wrap" href="#/tab/chats/{{purchase.id}}">
+        <img ng-src="{{purchase.id}}">
+        <h2>{{purchase.name}}</h2>
         <p>{{chat.lastText}}</p>
         <i class="icon ion-chevron-right icon-accessory"></i>
 
@@ -12,6 +12,7 @@
           Delete
         </ion-option-button>
       </ion-item>
+
     </ion-list>
     <ion-infinite-scroll ng-if="canLoadMore()" on-infinite="loadMore()" distance="15%"></ion-infinite-scroll>
   </ion-content>

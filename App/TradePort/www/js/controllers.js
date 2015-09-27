@@ -287,7 +287,7 @@ angular.module('starter.controllers', [])
         }
     })
 
-    .controller('ChatsCtrl', function($scope, Chats, Purchase) {
+    .controller('ChatsCtrl', function($scope, Chats, Purchase, Product, Currency, User, $ionicScrollDelegate) {
         var canLoadMore = true;
         $scope.purchases = [];
 
@@ -325,6 +325,24 @@ angular.module('starter.controllers', [])
                 if (!purchases || purchases.length == 0)
                     return;
 
+                // wtf
+                //purchases.forEach(function (object) {
+                //    console.log(object);
+                //    if (object.type === 'product') {
+                //        Product.get(object.itemId).success(function (product) {
+                //            object.product = product
+                //        });
+                //    } else {
+                //        Currency.get(object.itemId).success(function (currency) {
+                //            object.currency = currency
+                //        });
+                //    }
+                //
+                //    User.get(object.userId).success(function (user) {
+                //        object.currency = user
+                //    });
+                //});
+
                 if (purchases.length >= 10) {
                     canLoadMore = true;
                 }
@@ -340,8 +358,11 @@ angular.module('starter.controllers', [])
         };
     })
 
-    .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-        $scope.chat = Chats.get($stateParams.chatId);
+    .controller('ChatDetailCtrl', function($scope, $stateParams, Purchase) {
+        $scope.purchase = {};
+        Purchase.get($stateParams.chatId).success(function (purchase) {
+            $scope.purchase = purchase;
+        });
     })
 
     .controller('TradeCtrl', function ($scope, $state, Camera, User, Product) {
