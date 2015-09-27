@@ -358,11 +358,9 @@ angular.module('starter.controllers', [])
         };
     })
 
-    .controller('ChatDetailCtrl', function($scope, $stateParams, Chats, Purchase) {
-        $scope.chat = Chats.get($stateParams.chatId);
-
+    .controller('ChatDetailCtrl', function($scope, $stateParams, Purchase) {
         $scope.purchase = {};
-        Purchase.get($stateParams.purchaseId).success(function (purchase) {
+        Purchase.get($stateParams.chatId).success(function (purchase) {
             $scope.purchase = purchase;
         });
     })
