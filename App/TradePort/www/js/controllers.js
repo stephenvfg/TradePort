@@ -407,6 +407,7 @@ angular.module('starter.controllers', [])
                         }
                     })
                 } else {
+                    globalUser = users;
                     createProduct(users._id)
                 }
             })
@@ -422,6 +423,7 @@ angular.module('starter.controllers', [])
 
     .controller('ProductCtrl', function($scope, $stateParams, Product, Purchase) {
         $scope.product = {};
+        $scope.user = globalUser;
         $scope.bought = false;
         Product.get($stateParams.productId).success(function (product) {
             $scope.product = product;
