@@ -351,11 +351,6 @@ angular.module('starter.controllers', [])
                 $ionicScrollDelegate.resize();
             });
         };
-
-        $scope.chats = Chats.all();
-        $scope.remove = function(chat) {
-            Chats.remove(chat);
-        };
     })
 
     .controller('ChatDetailCtrl', function($scope, $stateParams, Purchase, Message, Product, Currency) {
@@ -435,6 +430,7 @@ angular.module('starter.controllers', [])
                         }
                     })
                 } else {
+                    globalUser = users;
                     createProduct(users._id)
                 }
             })
@@ -450,12 +446,17 @@ angular.module('starter.controllers', [])
 
     .controller('ProductCtrl', function($scope, $stateParams, Product, Purchase) {
         $scope.product = {};
+        $scope.user = globalUser;
         $scope.bought = false;
         Product.get($stateParams.productId).success(function (product) {
             $scope.product = product;
         });
 
         $scope.buy = function () {
+            $scope.product.sold = true;
+            Product.update($scope.product._id, $scope.product).success(function (product) {
+                $scope.product = product;
+            });
             Purchase.create({userId: globalUser._id, itemId: $scope.product._id, type: 'product'}).success(function () {
                 $scope.bought = true;
             });
@@ -507,6 +508,15 @@ angular.module('starter.controllers', [])
                 $ionicScrollDelegate.resize();
             });
         }
+    })
+
+
+    .controller('CurrencyDetailCtrl', function ($scope, $state, $stateParams, Currency) {
+        $scope.currency = {};
+
+        Currency.get($stateParams.currencyId).success(function (currency) {
+            $scope.currency = currency;
+        });
     })
 
     .controller('TradeCurrencyCtrl', function ($scope, User, Currency) {

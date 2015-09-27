@@ -80,6 +80,20 @@ module.exports = function (app) {
 		})
     })
 
+	app.put('/products/:id', function (req, res) {
+
+		if (!req.body._id) {
+			res.error('no id');
+		}
+
+		Product.findOneAndUpdate({_id: req.body._id}, req.body, function(err, productRecord) {
+			if(err) {
+				res.error('can not create product')
+			}
+			return res.json(productRecord)
+		})
+	})
+
     app.get('/products', function (req, res) {
     	Product.find({sold: false}).sort({'_id': 'desc'}).lean().exec(function (err, products) {
     		if(err) {

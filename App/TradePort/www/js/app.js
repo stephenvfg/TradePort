@@ -115,6 +115,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         }
       })
 
+      .state('tab.currency-detail', {
+        url: '/currency/:currencyId',
+        views: {
+          'tab-currency': {
+            templateUrl: 'templates/tab-currency-detail.html',
+            controller: 'CurrencyDetailCtrl'
+          }
+        }
+      })
+
 
       .state('tab.trade-currency', {
         url: '/trade-currency',
