@@ -490,10 +490,12 @@ angular.module('starter.controllers', [])
 
 
     .controller('CurrencyDetailCtrl', function ($scope, $state, $stateParams, Currency) {
+        $scope.exchanged = false;
         $scope.currency = {};
 
         Currency.get($stateParams.currencyId).success(function (currency) {
             $scope.currency = currency;
+            $scope.exchanged = currency.exchanged;
         });
     })
 
