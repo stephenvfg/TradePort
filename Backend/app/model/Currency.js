@@ -8,7 +8,7 @@ var CurrencySchema = new Schema({
     location: String,
     lat: Number,
     long: Number,
-    userId: Number,
+    userId: String,
     have: String,
     need: String,
     amount: Number,

@@ -7,7 +7,7 @@ var Schema = mongoose.Schema;
 var PurchaseSchema = new Schema({
     itemId: Number,
     type: String,
-    userId: Number
+    userId: String
 });
 
 module.exports = mongoose.model('Purchase', PurchaseSchema);
