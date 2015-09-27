@@ -428,7 +428,8 @@ angular.module('starter.controllers', [])
 
         $scope.addPhoto = function () {
             Camera.getPicture().then(function(imageURI) {
-                product.images.push(imageURI);
+                //product.images.push(imageURI);
+
                 //$ionicLoading.hide();
                 $state.go('tab.transactions');
             }, function(err) {
