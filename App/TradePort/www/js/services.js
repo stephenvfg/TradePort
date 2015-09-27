@@ -177,4 +177,21 @@ angular.module('starter.services', [])
         }
       }
     })
+
+    .factory('Chat', function ($http) {
+      return {
+        create: function (chatData) {
+          return $http.post(host + '/messages', chatData)
+        },
+        get: function (id) {
+          return $http.get(host + '/messages/' + id)
+        },
+        all: function (purchaseId, page, limit) {
+          page = page || 0;
+          limit = limit || 10;
+
+          return $http.get(host + '/messages/per-purchase/' + purchaseId)
+        }
+      }
+    })
 ;
