@@ -387,10 +387,13 @@ angular.module('starter.controllers', [])
                 $scope.newMessage.senderId = purchase.userId;
                 if(purchase.type === 'product') {
                     Product.get(purchase.itemId).success(function(product) {
+                        $scope.product = product;
                         $scope.newMessage.receiverId = product.userId;
                     })
                 } else {
                     Currency.get(purchase.itemId).success(function(currency) {
+                        currency.title = currency.amount + ' ' + currency.have + ' for ' + currency.need;
+                        $scope.product = currency;
                         $scope.newMessage.receiverId = currency.userId;
                     })
                 }
