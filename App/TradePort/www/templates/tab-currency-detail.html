@@ -8,13 +8,13 @@
         <div class="items-details">{{ currency.exchangeRate }}</div>
         <div class="items-details item-desc">{{ currency.description }}</div>
 
-        <button class="button button-full button-positive" ng-click="Exchange()" ng-show="!exchanged && user._id != product.userId">
+        <button class="button button-full button-positive" ng-click="exchange()" ng-show="!exchanged && user._id != currency.userId">
             Exchange
         </button>
         <button class="button button-full button-positive" ng-show="exchanged" disabled>
             Exchanged
         </button>
-        <button class="button button-positive button-outline" ng-show="user._id != product.userId">
+        <button class="button button-positive button-outline" ng-show="user._id != currency.userId">
             Contact
         </button>
     </ion-content>

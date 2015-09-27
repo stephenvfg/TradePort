@@ -511,14 +511,24 @@ angular.module('starter.controllers', [])
     })
 
 
-    .controller('CurrencyDetailCtrl', function ($scope, $state, $stateParams, Currency) {
+    .controller('CurrencyDetailCtrl', function ($scope, $state, $stateParams, Currency, Purchase) {
         $scope.exchanged = false;
         $scope.currency = {};
 
         Currency.get($stateParams.currencyId).success(function (currency) {
             $scope.currency = currency;
-            $scope.exchanged = currency.exchanged;
+            $scope.exchanged = currency.exchanged || false;
         });
+
+        $scope.exchange = function () {
+            $scope.product.sold = true;
+            Currency.update($scope.currency._id, $scope.currency).success(function (currency) {
+                $scope.currency = currency;
+            });
+            Purchase.create({userId: globalUser._id, itemId: $scope.currency._id, type: 'currency'}).success(function () {
+                $scope.bought = true;
+            });
+        };
     })
 
     .controller('TradeCurrencyCtrl', function ($scope, User, Currency) {
