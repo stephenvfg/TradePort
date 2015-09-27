@@ -485,7 +485,7 @@ angular.module('starter.controllers', [])
         }
     })
 
-    .controller('TradeCurrencyCtrl', function ($scope, User, Currency, $state) {
+    .controller('TradeCurrencyCtrl', function ($scope, User, Currency) {
         $scope.currenciesArray = ["USD", "EUR", "GBP", "JPY", "CHF", "CAD", "AUD", "ZAR", "CNY", "SGD", "HKD", "INR", "AED"];
         function resetData() {
             $scope.user = globalUser;
@@ -501,7 +501,6 @@ angular.module('starter.controllers', [])
             $scope.currency.userId = userId;
             Currency.create($scope.currency).success(function () {
                 resetData();
-                $state.go('tab.currency');
             })
         }
 
