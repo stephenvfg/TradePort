@@ -1,1 +1,22 @@
-asd
+<ion-view view-title="Exchange">
+    <ion-nav-buttons side="right">
+        <button class="button button-clear" ng-click="trade()" ng-show="currency.userId == user._id  && user._id != null">Edit</button>
+    </ion-nav-buttons>
+    <ion-content class="padding">
+        <div><img class="cur-img" src="https://avatars3.githubusercontent.com/u/11214?v=3&s=460"><br/><span class="currency-details currency-have">{{ currency.have }}</span> for <span class="currency-details currency-need">{{ currency.need }}</span></div>
+        <div class="currency-details currency-amount">{{ currency.have }} Amount: <span class="cur-bold">{{ currency.amount }}</span></div>
+        <div class="currency-details currency-exchangeRate">Current Exchange Rate: <span class="cur-bold">{{ currency.exchangeRate }}</span></div>
+        <div class="currency-details currency-desc">Trade Description: <br/>{{ currency.description }}</div>
+        <div class="currency-details currency-trade">Suggested Trade: <br/><span class="cur-bold">{{ currency.amount }} {{ currency.have }} for {{ currency.need }} {{ currency.amount * currency.exchangeRate }}</span></div>
+
+        <button class="button button-full button-positive" ng-click="exchange()" ng-show="!exchanged && user._id != currency.userId">
+            Exchange
+        </button>
+        <button class="button button-full button-positive" ng-show="exchanged" disabled>
+            Exchanged
+        </button>
+        <button class="button button-positive button-outline" ng-show="user._id != currency.userId" ng-click="contact()">
+            Contact
+        </button>
+    </ion-content>
+</ion-view>

@@ -84,7 +84,7 @@ a.looks-like-google {
 	padding-right: 20px;
 }
 .grid .item-complex .item-content {
-	height: 200px;
+	height: 220px;
 }
 .item-content {
 	white-space: normal;
@@ -120,4 +120,71 @@ a.looks-like-google {
 
 [name="tab-dash"] .item-photo img {
     width: 100%;
+}
+
+/* currency tab styles */
+.currency-tab.currency-have {
+    font-weight: 200;
+    font-size: 180%;
+    text-transform: uppercase;
+    font-family: "Helvetica Neue";
+}
+.currency-tab.currency-need {
+    font-weight: 200;
+    font-size: 180%;
+    text-transform: uppercase;
+    font-family: "Helvetica Neue";
+}
+.currency-tab.currency-amount {
+    font-weight: 400;
+    font-family: "Helvetica Neue";
+    float: right;
+    color: green;
+    font-size: 180%;
+}
+.currency-tab.currency-exchangeRate {
+    font-weight: 200;
+    font-family: "Helvetica Neue";
+}
+
+/* currency description tab styles */
+.currency-details.currency-have {
+    padding-top: 20px;
+    font-weight: 200;
+    font-size: 300%;
+    text-transform: uppercase;
+    font-family: "Helvetica Neue";
+}
+.currency-details.currency-need {
+    font-weight: 200;
+    font-size: 300%;
+    text-transform: uppercase;
+    font-family: "Helvetica Neue";
+}
+.currency-details.currency-amount,
+.currency-details.currency-desc,
+.currency-details.currency-trade {
+    margin-top: 20px;
+    font-weight: 200;
+    font-family: "Helvetica Neue";
+    font-size: 140%;
+}
+.currency-details.currency-exchangeRate {
+    font-weight: 200;
+    font-family: "Helvetica Neue";
+    font-size: 140%;
+}
+.cur-bold {
+	font-weight: 400;
+	color: green;
+}
+.cur-img {
+	float: left;
+    max-width: 50px;
+    max-height: 50px;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    margin-top: 7px;
+    margin-right: 10px;
 }

@@ -139,6 +139,21 @@ module.exports = function (app) {
 		})
 	})
 
+
+	app.put('/currencies/:id', function (req, res) {
+
+		if (!req.body._id) {
+			res.error('no id');
+		}
+
+		Currency.findOneAndUpdate({_id: req.body._id}, req.body, function(err, currencyRecord) {
+			if(err) {
+				res.error('can not create product')
+			}
+			return res.json(currencyRecord)
+		})
+	})
+
 	app.get('/currencies', function (req, res) {
 		Currency.find({}).sort({'_id': 'desc'}).lean().exec(function (err, currencies) {
 			if(err) {

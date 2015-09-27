@@ -478,6 +478,10 @@ angular.module('starter.controllers', [])
                 $scope.bought = true;
             });
         };
+
+        $scope.contact = function () {
+            $state.go('tab.chats');
+        };
     })
 
     .controller('CurrencyCtrl', function ($scope, $state, Currency, $ionicScrollDelegate) {
@@ -528,12 +532,28 @@ angular.module('starter.controllers', [])
     })
 
 
-    .controller('CurrencyDetailCtrl', function ($scope, $state, $stateParams, Currency) {
+    .controller('CurrencyDetailCtrl', function ($scope, $state, $stateParams, Currency, Purchase) {
+        $scope.exchanged = false;
         $scope.currency = {};
 
         Currency.get($stateParams.currencyId).success(function (currency) {
             $scope.currency = currency;
+            $scope.exchanged = currency.exchanged || false;
         });
+
+        $scope.exchange = function () {
+            $scope.currency.exchanged = true;
+            Currency.update($scope.currency._id, $scope.currency).success(function (currency) {
+                $scope.currency = currency;
+            });
+            Purchase.create({userId: globalUser._id, itemId: $scope.currency._id, type: 'currency'}).success(function () {
+                $scope.exchanged = true;
+            });
+        };
+
+        $scope.contact = function () {
+            $state.go('tab.chats');
+        };
     })
 
     .controller('TradeCurrencyCtrl', function ($scope, User, Currency) {
