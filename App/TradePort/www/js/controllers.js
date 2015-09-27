@@ -298,6 +298,21 @@ angular.module('starter.controllers', [])
             $ionicScrollDelegate.resize();
         });
 
+        function loadProducts() {
+            $scope.products = {};
+            angular.forEach($scope.purchases, function(value, key) {
+                if(value.type === 'product') {
+                    Product.get(value.itemId).success(function(prod) {
+                        $scope.products[value._id] = prod
+                    })
+                } else {
+                    Currency.get(value.itemId).success(function(currency) {
+                        $scope.products[value._id] = currency
+                    })
+                }
+            });
+        }
+
         $scope.doRefresh = function () {
             canLoadMore = false;
             // reset to empty
@@ -308,6 +323,7 @@ angular.module('starter.controllers', [])
                 if (purchases.length >= 10) {
                     canLoadMore = true;
                 }
+                loadProducts();
             }).finally(function() {
                 $scope.$broadcast('scroll.refreshComplete');
                 $ionicScrollDelegate.resize();
@@ -347,6 +363,7 @@ angular.module('starter.controllers', [])
                     canLoadMore = true;
                 }
                 $scope.purchases = $scope.purchases.concat(purchases);
+                loadProducts();
                 $scope.$broadcast('scroll.infiniteScrollComplete');
                 $ionicScrollDelegate.resize();
             });
