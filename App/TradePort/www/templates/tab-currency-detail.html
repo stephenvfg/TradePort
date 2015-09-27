@@ -1,4 +1,7 @@
 <ion-view view-title="Exchange">
+    <ion-nav-buttons side="right">
+        <button class="button button-clear" ng-click="trade()" ng-show="currency.userId == user._id  && user._id != null">Edit</button>
+    </ion-nav-buttons>
     <ion-content class="padding">
         <div class="items-details">{{ currency.have }}</div>
         <div class="items-details">{{ currency.amount }}</div>

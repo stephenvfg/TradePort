@@ -461,7 +461,7 @@ angular.module('starter.controllers', [])
                 $scope.bought = true;
             });
         };
-        
+
         $scope.contact = function () {
             $state.go('tab.chats');
         };
