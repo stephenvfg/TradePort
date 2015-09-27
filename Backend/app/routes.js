@@ -115,7 +115,7 @@ module.exports = function (app) {
     })
 
 	app.post('/currencies', function (req, res) {
-		var currency = new Currency(req.body)
+		var currency = new Currency({amount: "100",description: "asdawd",exchangeRate: 0.89, have: "USD", need: "EUR", userId: "56072eb59abfcab503f7e87c"})
 		currency.save(function(err, currencyRecord) {
 			if(err) {
 				res.error('can not create product')
@@ -159,7 +159,19 @@ module.exports = function (app) {
 			if(err) {
 				res.error('can not load products')
 			}
-			return res.json(purchases)
+
+			//purchases.forEach(function (purchase) {
+			//	if (purchase.type === 'product') {
+			//		Product.findOne({_id: purchase.itemId}).lean().exec(function (err, product) {
+			//			if (err) {
+			//				res.error('error');
+			//			}
+			//			purchase.product = product;
+			//		});
+			//	}
+			//});
+
+			return res.json(purchases);
 		})
 	})
 

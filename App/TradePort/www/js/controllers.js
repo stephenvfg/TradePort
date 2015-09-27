@@ -287,7 +287,7 @@ angular.module('starter.controllers', [])
         }
     })
 
-    .controller('ChatsCtrl', function($scope, Chats, Purchase) {
+    .controller('ChatsCtrl', function($scope, Chats, Purchase, Product, Currency, User, $ionicScrollDelegate) {
         var canLoadMore = true;
         $scope.purchases = [];
 
@@ -325,6 +325,24 @@ angular.module('starter.controllers', [])
                 if (!purchases || purchases.length == 0)
                     return;
 
+                // wtf
+                //purchases.forEach(function (object) {
+                //    console.log(object);
+                //    if (object.type === 'product') {
+                //        Product.get(object.itemId).success(function (product) {
+                //            object.product = product
+                //        });
+                //    } else {
+                //        Currency.get(object.itemId).success(function (currency) {
+                //            object.currency = currency
+                //        });
+                //    }
+                //
+                //    User.get(object.userId).success(function (user) {
+                //        object.currency = user
+                //    });
+                //});
+
                 if (purchases.length >= 10) {
                     canLoadMore = true;
                 }
@@ -340,8 +358,13 @@ angular.module('starter.controllers', [])
         };
     })
 
-    .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
+    .controller('ChatDetailCtrl', function($scope, $stateParams, Chats, Purchase) {
         $scope.chat = Chats.get($stateParams.chatId);
+
+        $scope.purchase = {};
+        Purchase.get($stateParams.purchaseId).success(function (purchase) {
+            $scope.purchase = purchase;
+        });
     })
 
     .controller('TradeCtrl', function ($scope, $state, Camera, User, Product) {
@@ -462,7 +485,7 @@ angular.module('starter.controllers', [])
         }
     })
 
-    .controller('TradeCurrencyCtrl', function ($scope, User, Currency) {
+    .controller('TradeCurrencyCtrl', function ($scope, User, Currency, $state) {
         $scope.currenciesArray = ["USD", "EUR", "GBP", "JPY", "CHF", "CAD", "AUD", "ZAR", "CNY", "SGD", "HKD", "INR", "AED"];
         function resetData() {
             $scope.user = globalUser;
@@ -478,6 +501,7 @@ angular.module('starter.controllers', [])
             $scope.currency.userId = userId;
             Currency.create($scope.currency).success(function () {
                 resetData();
+                $state.go('tab.currency');
             })
         }
 
