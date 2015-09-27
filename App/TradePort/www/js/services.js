@@ -183,8 +183,8 @@ angular.module('starter.services', [])
 
     .factory('Message', function ($http) {
       return {
-        create: function (chatData) {
-          return $http.post(host + '/messages', chatData)
+        create: function (messageData) {
+          return $http.post(host + '/messages', messageData)
         },
         get: function (id) {
           return $http.get(host + '/messages/' + id)
