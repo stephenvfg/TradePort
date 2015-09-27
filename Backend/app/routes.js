@@ -186,14 +186,14 @@ module.exports = function (app) {
 	})
 
 	app.post('/messages', function (req, res) {
-		// req.body.createdAt = (new Date()).getTime()
-		// var message = new Message(req.body)
-		// message.save(function(err, messageRecord) {
-		// 	if(err) {
-		// 		res.error('can not create message')
-		// 	}
-		// 	return res.json(messageRecord)
-		// })
+		req.body.createdAt = (new Date()).getTime()
+		var message = new Message(req.body)
+		message.save(function(err, messageRecord) {
+			if(err) {
+				res.error('can not create message')
+			}
+			return res.json(messageRecord)
+		})
 	})
 
 	app.get('/messages/per-user/:userId', function (req, res) {
