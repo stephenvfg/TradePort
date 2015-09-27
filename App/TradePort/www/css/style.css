@@ -111,6 +111,14 @@ a.looks-like-google {
     font-size: 240%;
     margin: 20px 0;
 }
+.items-details.item-tag.ng-binding {
+    display: inline-block;
+    padding: 0px 4px;
+    background-color: #B2DFDB;
+    border: 1px #4DB6AC solid;
+    border-radius: 6px;
+    margin-right: 6px;
+}
 
 /* masonry grid */
 .grid-item { 

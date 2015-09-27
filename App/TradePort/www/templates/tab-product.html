@@ -7,13 +7,13 @@
         <div class="items-details item-photo"><img src="http://placehold.it/350x225"></div>
         <div class="items-details item-title">{{ product.title }}</div>
         <div class="items-details item-desc">{{ product.description }}</div>
-        <div class="items-details item-price">{{ product.askingPrice }}</div>
-
         <div class="abc">
-            <div class="items-details item-price" ng-repeat="tag in product.tags">
+            <br/>Tags:
+            <div class="items-details item-tag" ng-repeat="tag in product.tags">
                 {{tag}}
             </div>
         </div>
+        <div class="items-details item-price">{{ product.askingPrice }}</div>
 
         <button class="button button-full button-positive" ng-click="buy()" ng-show="!bought && user._id != product.userId">
             Buy
