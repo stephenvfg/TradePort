@@ -10,5 +10,8 @@
     <p>
       {{chat.lastText}}
     </p>
+    <ion-item ng-repeat="message in messages" type="item-text-wrap">
+      <p>{{message.text}}</p>
+    </ion-item>
   </ion-content>
 </ion-view>

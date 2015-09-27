@@ -7,6 +7,7 @@ var clarifaiConf = require('../config/clarifai')
 var fs = require('fs')
 var Currency = require('./model/currency')
 var Purchase = require('./model/purchase')
+var Message = require('./model/message')
 
 module.exports = function (app) {
     app.get('/', function (req, res) {
@@ -143,7 +144,6 @@ module.exports = function (app) {
 		})
 	})
 
-
 	app.post('/purchases', function (req, res) {
 		var purchase = new Purchase(req.body)
 		purchase.save(function(err, purchaseRecord) {
@@ -177,11 +177,52 @@ module.exports = function (app) {
 
 	app.get('/purchases/:id', function (req, res) {
 		var purchasesId = req.params.id
-		Purchase.findOne({ _id: purchasesId }).lean().exec(function (err, purchase) {
+		Purchase.findById(purchasesId, function (err, purchase) {
 			if(err) {
 				res.error('can not find product')
 			}
 			return res.json(purchase)
+		})
+	})
+
+	app.post('/messages', function (req, res) {
+		req.body.createdAt = (new Date()).getTime()
+		var message = new Message(req.body)
+		message.save(function(err, messageRecord) {
+			if(err) {
+				res.error('can not create message')
+			}
+			return res.json(messageRecord)
+		})
+	})
+
+	app.get('/messages/per-user/:userId', function (req, res) {
+		var userId = req.params.userId
+		Message.find({$or: [ { senderId: userId }, { receiverId: userId } ]}).sort({'_id': 'desc'}).lean().exec(function (err, messages) {
+			if(err) {
+				res.error('can not load messages')
+			}
+			return res.json(messages)
+		})
+	})
+
+	app.get('/messages/per-purchase/:purchaseId', function (req, res) {
+		var purchaseId = req.params.purchaseId
+		Message.find({ purchaseId: purchaseId }).sort({'_id': 'desc'}).lean().exec(function (err, messages) {
+			if(err) {
+				res.error('can not load messages')
+			}
+			return res.json(messages)
+		})
+	})
+
+	app.get('/messages/:id', function (req, res) {
+		var messageId = req.params.id
+		Message.findById(messageId, function (err, message) {
+			if(err) {
+				res.error('can not find message')
+			}
+			return res.json(message)
 		})
 	})
 };

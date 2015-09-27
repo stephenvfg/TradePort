@@ -362,6 +362,9 @@ angular.module('starter.controllers', [])
         $scope.purchase = {};
         Purchase.get($stateParams.chatId).success(function (purchase) {
             $scope.purchase = purchase;
+            Message.all(purchase._id).success(function(messages) {
+                $scope.messages = messages;
+            });
         });
     })
 
