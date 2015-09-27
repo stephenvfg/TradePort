@@ -3,6 +3,7 @@
         <button class="button button-clear" ng-click="trade()"><i class="ion-plus-round"></i> Trade</button>
     </ion-nav-buttons>
     <ion-content class="padding">
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
         <ion-list>
             <ion-item class="item-remove-animate" ng-repeat="currency in currencies" type="item-text-wrap" href="#/tab/currency/{{ currency._id }}">
             	<div class="currency-tab currency-have">{{ currency.have }}</div>
@@ -11,6 +12,6 @@
             	<div class="currency-tab currency-exchangeRate">{{ currency.exchangeRate }}</div>
             </ion-item>
         </ion-list>
-
+        <ion-infinite-scroll ng-if="canLoadMore()" on-infinite="loadMore()" distance="15%"></ion-infinite-scroll>
     </ion-content>
 </ion-view>
