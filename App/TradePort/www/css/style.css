@@ -188,3 +188,11 @@ a.looks-like-google {
     margin-top: 7px;
     margin-right: 10px;
 }
+
+/* chat styles */
+.chat-send input[type="textarea"] {
+	border: none;
+}
+.offer-avatar {
+	border: none;
+}
