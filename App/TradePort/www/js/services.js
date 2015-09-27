@@ -159,6 +159,9 @@ angular.module('starter.services', [])
           limit = limit || 10;
 
           return $http.get(host + '/currencies')
+        },
+        update: function (id, productData) {
+          return $http.put(host + '/currencies/' + id, productData);
         }
       }
     })

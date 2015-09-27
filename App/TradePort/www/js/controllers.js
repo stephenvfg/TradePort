@@ -521,12 +521,12 @@ angular.module('starter.controllers', [])
         });
 
         $scope.exchange = function () {
-            $scope.product.sold = true;
+            $scope.currency.exchanged = true;
             Currency.update($scope.currency._id, $scope.currency).success(function (currency) {
                 $scope.currency = currency;
             });
             Purchase.create({userId: globalUser._id, itemId: $scope.currency._id, type: 'currency'}).success(function () {
-                $scope.bought = true;
+                $scope.exchanged = true;
             });
         };
     })
