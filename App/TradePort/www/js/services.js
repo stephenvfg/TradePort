@@ -125,6 +125,9 @@ angular.module('starter.services', [])
 
         create: function (productData) {
           return $http.post(host +'/products', productData);
+        },
+        update: function (id, productData) {
+          return $http.put(host + '/products/' + id, productData);
         }
       }
     })

@@ -351,11 +351,6 @@ angular.module('starter.controllers', [])
                 $ionicScrollDelegate.resize();
             });
         };
-
-        $scope.chats = Chats.all();
-        $scope.remove = function(chat) {
-            Chats.remove(chat);
-        };
     })
 
     .controller('ChatDetailCtrl', function($scope, $stateParams, Purchase, Message) {
@@ -433,6 +428,11 @@ angular.module('starter.controllers', [])
         });
 
         $scope.buy = function () {
+            $scope.product.sold = true;
+            Product.update($scope.product._id, $scope.product).success(function (product) {
+                $scope.product = product;
+            });
+
             Purchase.create({userId: globalUser._id, itemId: $scope.product.id, type: 'product'}).success(function () {
                 $scope.bought = true;
             });
