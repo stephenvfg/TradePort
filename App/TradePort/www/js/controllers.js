@@ -488,6 +488,15 @@ angular.module('starter.controllers', [])
         }
     })
 
+
+    .controller('CurrencyDetailCtrl', function ($scope, $state, $stateParams, Currency) {
+        $scope.currency = {};
+
+        Currency.get($stateParams.currencyId).success(function (currency) {
+            $scope.currency = currency;
+        });
+    })
+
     .controller('TradeCurrencyCtrl', function ($scope, User, Currency) {
         $scope.currenciesArray = ["USD", "EUR", "GBP", "JPY", "CHF", "CAD", "AUD", "ZAR", "CNY", "SGD", "HKD", "INR", "AED"];
         function resetData() {
