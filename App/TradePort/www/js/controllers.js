@@ -307,6 +307,7 @@ angular.module('starter.controllers', [])
                     })
                 } else {
                     Currency.get(value.itemId).success(function(currency) {
+                        currency.title = currency.amount + ' ' + currency.have + ' for ' + currency.need;
                         $scope.products[value._id] = currency
                     })
                 }
