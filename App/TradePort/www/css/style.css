@@ -121,3 +121,28 @@ a.looks-like-google {
 [name="tab-dash"] .item-photo img {
     width: 100%;
 }
+
+/* currency tab styles */
+.currency-tab.currency-have {
+    font-weight: 200;
+    font-size: 180%;
+    text-transform: uppercase;
+    font-family: "Helvetica Neue";
+}
+.currency-tab.currency-need {
+    font-weight: 200;
+    font-size: 180%;
+    text-transform: uppercase;
+    font-family: "Helvetica Neue";
+}
+.currency-tab.currency-amount {
+    font-weight: 400;
+    font-family: "Helvetica Neue";
+    float: right;
+    color: green;
+    font-size: 180%;
+}
+.currency-tab.currency-exchangeRate {
+    font-weight: 200;
+    font-family: "Helvetica Neue";
+}
