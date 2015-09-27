@@ -8,7 +8,10 @@
   <ion-content class="padding">
     <img ng-src="{{chat.face}}" style="width: 64px; height: 64px">
     <p>
-      {{chat.text}}
+      {{chat.lastText}}
     </p>
+    <ion-item ng-repeat="message in messages" type="item-text-wrap">
+      <p>{{message.text}}</p>
+    </ion-item>
   </ion-content>
 </ion-view>

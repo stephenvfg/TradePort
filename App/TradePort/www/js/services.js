@@ -178,7 +178,7 @@ angular.module('starter.services', [])
       }
     })
 
-    .factory('Chat', function ($http) {
+    .factory('Message', function ($http) {
       return {
         create: function (chatData) {
           return $http.post(host + '/messages', chatData)
