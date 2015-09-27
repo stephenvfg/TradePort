@@ -358,14 +358,37 @@ angular.module('starter.controllers', [])
         };
     })
 
-    .controller('ChatDetailCtrl', function($scope, $stateParams, Purchase, Message) {
-        $scope.purchase = {};
-        Purchase.get($stateParams.chatId).success(function (purchase) {
-            $scope.purchase = purchase;
-            Message.all(purchase._id).success(function(messages) {
+    .controller('ChatDetailCtrl', function($scope, $stateParams, Purchase, Message, Product, Currency) {
+        reloadPage()
+
+        function reloadPage() {
+            // do something
+            $scope.purchase = {};
+            $scope.newMessage = {};
+            Message.all($stateParams.chatId).success(function(messages) {
                 $scope.messages = messages;
             });
-        });
+            Purchase.get($stateParams.chatId).success(function (purchase) {
+                $scope.purchase = purchase;
+                $scope.newMessage.purchaseId = purchase._id;
+                $scope.newMessage.senderId = purchase.userId;
+                if(purchase.type === 'product') {
+                    Product.get(purchase.itemId).success(function(product) {
+                        $scope.newMessage.receiverId = product.userId;
+                    })
+                } else {
+                    Currency.get(purchase.itemId).success(function(currency) {
+                        $scope.newMessage.receiverId = currency.userId;
+                    })
+                }
+            });
+        }
+
+        $scope.sendMessage = function () {
+            Message.create($scope.newMessage).success(function(messageObj) {
+                reloadPage();
+            })
+        }
     })
 
     .controller('TradeCtrl', function ($scope, $state, Camera, User, Product) {
@@ -433,7 +456,7 @@ angular.module('starter.controllers', [])
         });
 
         $scope.buy = function () {
-            Purchase.create({userId: globalUser._id, itemId: $scope.product.id, type: 'product'}).success(function () {
+            Purchase.create({userId: globalUser._id, itemId: $scope.product._id, type: 'product'}).success(function () {
                 $scope.bought = true;
             });
         };
