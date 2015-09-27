@@ -2,7 +2,7 @@
   <ion-content>
     <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
     <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="purchase in purchases" type="item-text-wrap" href="#/tab/chats/{{purchase.id}}">
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="purchase in purchases" type="item-text-wrap" href="#/tab/chats/{{purchase._id}}">
         <img ng-src="{{purchase.id}}">
         <h2>{{purchase.name}}</h2>
         <p>{{chat.lastText}}</p>
