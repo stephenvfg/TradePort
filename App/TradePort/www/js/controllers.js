@@ -461,6 +461,10 @@ angular.module('starter.controllers', [])
                 $scope.bought = true;
             });
         };
+        
+        $scope.contact = function () {
+            $state.go('tab.chats');
+        };
     })
 
     .controller('CurrencyCtrl', function ($scope, $state, Currency, $ionicScrollDelegate) {
@@ -528,6 +532,10 @@ angular.module('starter.controllers', [])
             Purchase.create({userId: globalUser._id, itemId: $scope.currency._id, type: 'currency'}).success(function () {
                 $scope.exchanged = true;
             });
+        };
+
+        $scope.contact = function () {
+            $state.go('tab.chats');
         };
     })
 
